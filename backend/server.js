@@ -18,6 +18,9 @@ app.use(bodyParser.json());
 const users = require("./api/users");
 app.use("/api/users", users);
 
+const options = require("./api/options");
+app.use("/api/options", options);
+
 app.get("/", (req, res) => {
   res.json({ headerText: "Hello World!" });
 });

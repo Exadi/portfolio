@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authActions";
+import axios from "axios";
 
 function Admin(props) {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [options, setOptions] = useState([]);
 
   useEffect(() => {
     if (!auth.isAuthenticated) {
       props.history.push("/login");
+    } else {
+      axios.get("/api/options/").then((res) => setOptions(res.data));
     }
   });
 
@@ -23,6 +27,13 @@ function Admin(props) {
       >
         Log out
       </button>
+      {options.map((option) => {
+        return (
+          <div>
+            {option.name}: {option.value}
+          </div>
+        );
+      })}
     </div>
   );
 }
