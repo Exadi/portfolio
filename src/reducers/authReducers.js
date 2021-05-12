@@ -7,7 +7,7 @@ const initialState = {
   isPasswordReset: false,
   error: "",
 };
-export default function (state = initialState, action) {
+export default function authReducers(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
