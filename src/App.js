@@ -31,10 +31,12 @@ function App() {
 
   var getUrl = window.location;
   var baseUrl = (getUrl.protocol + "//" + getUrl.host).replace(
-    "3001",
+    /[0-9]{4}/g,
     process.env.PORT || "5001"
   );
   axios.defaults.baseURL = baseUrl;
+
+  console.log(axios.defaults);
 
   return (
     <Provider store={store}>
