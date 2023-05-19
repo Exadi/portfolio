@@ -7,6 +7,8 @@ import { setSideBarOpen } from "../../../actions/adminActions";
 import ThemeModeSwitcher from "./ThemeModeSwitcher";
 import { logoutUser } from "../../../actions/authActions";
 
+import { FaHome, FaScrewdriver, FaUser, FaBars } from "react-icons/fa";
+
 function AdminHeader() {
   const auth = useSelector((state) => state.auth);
   const options = useSelector((state) => state.content.options);
@@ -23,8 +25,8 @@ function AdminHeader() {
     <div className="admin-header">
       <div className="wrapper">
         {location.pathname.includes("/admin") ? (
-          <i
-            className="menu-toggle fa fa-bars"
+          <FaBars
+            className="menu-toggle"
             onClick={() => dispatch(setSideBarOpen(!admin.sidebarOpen))}
           />
         ) : (
@@ -34,12 +36,12 @@ function AdminHeader() {
           <span className="home-link">
             {location.pathname.includes("/admin") ? (
               <Link to="/">
-                <i className="fa fa-house" />
+                <FaHome />
                 <span className="header-text">{title}</span>
               </Link>
             ) : (
               <Link to="/admin">
-                <i className="fa fa-screwdriver" />
+                <FaScrewdriver />
                 <span className="header-text">{title}</span>
               </Link>
             )}
@@ -50,7 +52,7 @@ function AdminHeader() {
         <div>
           <ThemeModeSwitcher />
           <span className="user-name">
-            <i className="fa-solid fa-user"></i>
+            <FaUser />
             {auth.isAuthenticated ? (
               <>
                 <span className="header-text">Hello {auth.user.name}</span>

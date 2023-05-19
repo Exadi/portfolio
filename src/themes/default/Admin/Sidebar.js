@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { FaMapSigns, FaBox, FaCog } from "react-icons/fa";
 
 const navItems = [
-  { icon: "fa-signs-post", text: "Posts", link: "posts" },
-  { icon: "fa-box", text: "Categories", link: "categories" },
-  { icon: "fa-gear", text: "Settings", link: "settings" },
+  { icon: <FaMapSigns />, text: "Posts", link: "posts" },
+  { icon: <FaBox />, text: "Categories", link: "categories" },
+  { icon: <FaCog />, text: "Settings", link: "settings" },
 ];
 function Sidebar() {
   const { sidebarOpen } = useSelector((state) => state.admin);
@@ -16,8 +17,8 @@ function Sidebar() {
           return (
             <li key={item.link}>
               <Link to={`/admin/${item.link}`}>
-                <i className={`fa ${item.icon}`} />
-                <span className="">{item.text}</span>
+                {item.icon}
+                <span className="sidebar-text">{item.text}</span>
               </Link>
             </li>
           );

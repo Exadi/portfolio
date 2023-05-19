@@ -4,13 +4,10 @@ import { connect } from "react-redux";
 import "./style.scss";
 import styles from "./HomePage.module.scss";
 import ViewCategory from "./ViewCategory";
-import axios from "axios";
-import { useState } from "react";
 import { optionNames } from "./themeOptions";
 
 function HomePage(props) {
   const options = props.options;
-  console.log(options);
 
   return (
     <div className="homepage">
