@@ -33,11 +33,14 @@ app.use("/api/posts", posts);
 const setup = require("./api/setup");
 app.use("/api/setup", setup);
 
-app.get("/", (req, res) => {
-  res.json({ headerText: "Hello World!" });
-});
-
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../build")));
+
+app.get("*", function (_, res) {
+  res.sendFile(path.join(__dirname, "../build/index.html"), function (err) {
+    res.status(500).send(err);
+  });
+});
 
 // Serve the theme files
 app.use("/themes", express.static(path.join(__dirname, "themes")));
