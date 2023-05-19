@@ -1,6 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
+  "main": "backend/server.js",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
