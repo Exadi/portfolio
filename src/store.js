@@ -1,3 +1,9 @@
+import { configureStore } from "@reduxjs/toolkit";
+
+import adminStateReducers from "./reducers/adminStateReducers";
+import authReducer from "./reducers/authReducers";
+import contentReducers from "./reducers/contentReducers";
+
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
@@ -9,9 +15,14 @@ const composeEnhancers =
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
     : compose;
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeEnhancers(applyMiddleware(...middleware))
-);
+
+const store = configureStore({
+  // Automatically calls `combineReducers`
+  reducer: {
+    admin: adminStateReducers,
+    auth: authReducer,
+    content: contentReducers,
+  },
+});
+
 export default store;

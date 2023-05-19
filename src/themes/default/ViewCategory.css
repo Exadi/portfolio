@@ -1,0 +1,43 @@
+.main-content h1 {
+  text-align: center;
+}
+
+.post-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.post-card {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 1rem;
+  flex-basis: 100%;
+  flex-grow: 1;
+}
+
+.post-text-preview {
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*in case line-clamp isn't supported*/
+  max-height: 6.5em;
+}
+
+.post-text-preview img {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .post-card {
+    /*try to fit 3 items on large screens
+        if there is one post, don't let it be ridiculously large
+        */
+    flex-basis: calc(33% - 3rem);
+    max-width: 50%;
+  }
+}

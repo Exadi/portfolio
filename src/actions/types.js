@@ -1,3 +1,8 @@
 export const SET_ERROR = "SET_ERROR";
 export const USER_LOADING = "USER_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+
+export const SET_OPTIONS = "SET_OPTIONS";
+export const SET_THEME_FOLDERS = "SET_THEME_FOLDERS";
+
+export const SET_SIDEBAR_OPEN = "SET_SIDEBAR_OPEN";

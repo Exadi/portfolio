@@ -1,0 +1,268 @@
+/*light mode colours*/
+$color-primary-light: white;
+$color-text-light: black;
+$color-primary-light-lighter: darken($color-primary-light, 2%);
+$color-primary-light-darker: darken($color-primary-light, 5%);
+$color-secondary-light: #2531d8;
+
+/*dark mode colours */
+$color-primary-dark: #202020;
+$color-primary-dark-lighter: lighten($color-primary-dark, 5%);
+$color-primary-dark-darker: darken($color-primary-dark, 5%);
+$color-text-dark: #d7dadd;
+$color-secondary-dark: #0c104e;
+
+@mixin light-mode {
+  background-color: $color-primary-light;
+  color: $color-text-light;
+  border-color: $color-text-light;
+
+  .main-content {
+    background-image: url(assets/bg_light.png);
+  }
+  tbody tr:nth-child(odd) {
+    background-color: $color-primary-light-lighter;
+  }
+  th,
+  tbody tr:nth-child(even) {
+    background-color: $color-primary-light-darker;
+  }
+
+  .post-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .homepage section:nth-child(even)::after {
+    background-image: linear-gradient(
+      -45deg,
+      rgba($color-primary-light-darker, 0.9),
+      rgba($color-secondary-light, 0.9)
+    );
+  }
+
+  .homepage section:nth-child(odd)::after {
+    background-image: linear-gradient(
+      45deg,
+      rgba($color-primary-light-darker, 0.9),
+      rgba($color-secondary-light, 0.9)
+    );
+  }
+
+  $light-outline-color: #74a9b3;
+  @keyframes light-outline {
+    0% {
+      text-shadow: -1px -1px 0 silver, 1px -1px 0 silver, -1px 1px 0 silver,
+        1px 1px 0 silver;
+    }
+    100% {
+      text-shadow: -1px -1px 0 $light-outline-color,
+        1px -1px 0 $light-outline-color, -1px 1px 0 $light-outline-color,
+        1px 1px 0 $light-outline-color;
+    }
+  }
+  .outlined {
+    animation: light-outline 2s infinite alternate ease-in-out;
+  }
+
+  .read-more {
+    color: $color-text-light;
+    text-decoration: underline;
+  }
+  footer {
+    background-image: linear-gradient(to bottom, $color-secondary-light, white);
+  }
+
+  footer::before,
+  footer::after {
+    background-color: $color-primary-light;
+  }
+
+  .view-post,
+  .view-category-standalone {
+    background-color: rgba(white, 0.8);
+  }
+  .social-links a {
+    color: $color-text-light;
+  }
+}
+
+//END LIGHT MODE MIXIN
+
+@mixin dark-mode {
+  background-color: $color-primary-dark;
+  color: $color-text-dark;
+  border-color: $color-text-dark;
+
+  .main-content {
+    background-image: url(assets/bg_dark.png);
+  }
+  tbody tr:nth-child(odd) {
+    background-color: $color-primary-dark-lighter;
+  }
+  th,
+  tbody tr:nth-child(even) {
+    background-color: $color-primary-dark-darker;
+  }
+
+  .post-card {
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+  }
+
+  .homepage section:nth-child(even)::after {
+    background-image: linear-gradient(
+      -45deg,
+      rgba($color-primary-dark-darker, 0.9),
+      rgba($color-secondary-dark, 0.9),
+      rgba(black, 0.9)
+    );
+  }
+
+  .homepage section:nth-child(odd)::after {
+    background-image: linear-gradient(
+      45deg,
+      rgba($color-primary-dark-darker, 0.9),
+      rgba($color-secondary-dark, 0.9),
+      rgba(black, 0.9)
+    );
+  }
+
+  $light-outline-color: #056d80;
+  @keyframes dark-outline {
+    0% {
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+    }
+    100% {
+      text-shadow: -1px -1px 0 $light-outline-color,
+        1px -1px 0 $light-outline-color, -1px 1px 0 $light-outline-color,
+        1px 1px 0 $light-outline-color;
+    }
+  }
+  .outlined {
+    animation: dark-outline 2s infinite alternate ease-in-out;
+  }
+
+  .read-more {
+    color: $color-text-dark;
+    text-decoration: underline;
+  }
+  footer {
+    background-image: linear-gradient(to bottom, $color-secondary-dark, black);
+  }
+  footer::before,
+  footer::after {
+    background-color: $color-primary-dark;
+  }
+
+  .view-post,
+  .view-category-standalone {
+    background-color: rgba(black, 0.9);
+  }
+
+  .social-links a {
+    color: $color-text-dark;
+  }
+}
+
+//END DARK MODE
+
+.light-mode {
+  @include light-mode;
+}
+
+.dark-mode {
+  @include dark-mode;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    @include dark-mode;
+  }
+}
+
+$footer-height: 18rem;
+.main-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: $footer-height;
+  background-size: cover;
+  min-height: calc(100svh - $footer-height);
+}
+
+.view-post {
+  padding: 1em;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+@keyframes test {
+  from {
+    transform: skewY(-1deg);
+  }
+  to {
+    transform: skewY(1deg);
+  }
+}
+
+section {
+  text-align: center;
+}
+
+.diagonal {
+  --skew-angle: -1deg;
+  position: relative;
+  padding: min(5em, 4vw);
+  margin: 2em 0;
+  isolation: isolate;
+}
+
+.diagonal::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  transform: skewY(var(--skew-angle));
+  /*animation: test 10s infinite alternate ease-in-out;*/
+}
+
+.diagonal.reverse::after {
+  transform: skewY(calc(var(--skew-angle) * -1));
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  height: $footer-height;
+  bottom: 0;
+}
+
+footer .wrapper {
+  padding: 5em;
+}
+
+.view-post,
+.view-category-standalone {
+  border-radius: 10px;
+  background-color: rgba(black, 0.9);
+
+  //TODO this is way too much padding for mobile...
+  margin: min(5em, 2vw);
+  padding: min(5em, 2vw);
+}
+
+.social-links a {
+  font-size: 2em;
+}
+
+.about-me img {
+  border-radius: 50%;
+  width: 8em;
+  height: auto;
+  object-fit: cover;
+  //border: 0.2em solid gray;
+
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}

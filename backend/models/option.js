@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const optionSchema = new Schema({
-  optionName: {
+  name: {
     type: String,
     unique: true,
   },
-  optionValue: {
+  value: {
     type: String,
   },
+  type: { type: String },
 });
 
 module.exports = mongoose.model("Option", optionSchema, "options");

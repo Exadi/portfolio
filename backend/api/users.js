@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const Role = require("../models/role");
 
 const validateLoginInput = require("../validation/login");
 
@@ -12,6 +13,18 @@ const hashPassword = (user) => {
   var salt = bcrypt.genSaltSync(10);
   var hash = bcrypt.hashSync(user.password, salt);
   user.password = hash;
+};
+
+const getUserByName = async (userName) => {
+  console.log(`getUserByName ${userName}`);
+  try {
+    const user = await User.findOne({ userName: userName });
+    const role = await Role.findOne({ roleName: user.roleName });
+    return { ...user._doc, capabilities: role.capabilities };
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 };
 
 router.post("/register", (req, res) => {
@@ -97,4 +110,4 @@ router.post("/login", (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = { router, getUserByName: getUserByName };

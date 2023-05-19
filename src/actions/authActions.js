@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 import { SET_ERROR, SET_CURRENT_USER, USER_LOADING } from "./types"; // Register User
 import setAuthToken from "../utils/setAuthToken";
 
+//TODO remove this once I'm sure I don't need users to be able to register for their own accounts.
 export const registerUser = (userData, history) => (dispatch) => {
   axios
     .post("/api/users/register", userData)

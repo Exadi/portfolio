@@ -1,0 +1,140 @@
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "@fortawesome/fontawesome-free/scss/brands.scss";
+
+.admin-wrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+.admin-header {
+  background-color: rgb(4, 2, 102);
+  color: white;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 200;
+}
+
+.admin-header::after {
+  content: "";
+  height: 2em;
+}
+
+.admin-header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8em;
+}
+
+.admin-main {
+  padding: 1em;
+  flex-grow: 1;
+}
+
+a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+  align-items: baseline;
+}
+
+.admin-sidebar a,
+.admin-header a {
+  color: white;
+}
+
+i {
+  margin-right: 5px;
+}
+
+.admin-sidebar {
+  background-color: rgb(4, 2, 102);
+  color: white;
+  height: auto;
+  text-align: center;
+  transition: width 0.5s;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding-right: 2em;
+}
+
+.admin-sidebar ul {
+  padding: 0.5em;
+  text-align: left;
+}
+.admin-sidebar ul li {
+  list-style-type: none;
+  margin: 0.5em 0;
+}
+
+.admin-sidebar,
+.admin-main {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .admin-sidebar:not(.sidebar-open) {
+    width: 0%;
+  }
+
+  .admin-header .header-text {
+    display: none;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}
+
+$linkButtonColor: #007bff;
+$cautionColor: #dc3545;
+
+.linkButton {
+  font-size: 0.9rem;
+
+  font-weight: normal;
+  display: inline-block;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: $linkButtonColor;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.2rem 0.4rem;
+  margin: 0.1rem;
+  cursor: pointer;
+}
+
+.linkButton:hover {
+  filter: brightness(85%);
+}
+
+.linkButton.caution {
+  background-color: $cautionColor;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.2em;
+}
