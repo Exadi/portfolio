@@ -15,7 +15,7 @@ function MyTextEditor(props) {
     <Editor
       tinymceScriptSrc={process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"}
       onInit={(evt, editor) => (editorRef.current = editor)}
-      initialValue={props.value}
+      value={props.value}
       init={{
         height: 500,
         menubar: false,
@@ -48,7 +48,8 @@ function MyTextEditor(props) {
         images_upload_url: `/uploadImage/${user.id}`,
         relative_urls: false,
       }}
-      onChange={() => {
+      onEditorChange={() => {
+        console.log("onChange");
         if (props.onChange.length === 1) {
           props.onChange(editorRef.current.getContent());
         } else if (props.onChange.length === 2) {
