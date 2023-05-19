@@ -8,8 +8,6 @@ const fs = require("fs-extra");
 const multer = require("multer");
 app.use(cors());
 
-require("./database");
-
 app.use(
   bodyParser.urlencoded({
     extended: false,
@@ -109,6 +107,21 @@ app.post("/uploadImage/:userID", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+const mongoose = require("mongoose");
+
+let envPath = path.resolve(__dirname, "../backend/.env");
+require("dotenv").config({ path: envPath });
+const uri = process.env.ATLAS_URI;
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log("Database Connected Successfully");
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
+    });
+  })
+  .catch((err) => console.log(err));
