@@ -8,6 +8,7 @@
     "@tinymce/tinymce-react": "^4.3.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "fs-extra": "^11.1.1",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
