@@ -31,6 +31,7 @@
     "start": "node backend/server.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "cp \"client/package.json\" \"build/package.json\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "node ./postinstall.js"
