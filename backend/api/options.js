@@ -3,7 +3,6 @@ const router = express.Router();
 
 const Option = require("../models/option");
 const jwt_decode = require("jwt-decode");
-const mongoose = require("mongoose");
 const capabilities = require("../enums").capabilities;
 
 const getUserByName = require("./users").getUserByName;

@@ -25,3 +25,4 @@ backend/.env
 /public/tinymce/
 backend/public/themes
 backend/public/uploads
+backend/node_modules
