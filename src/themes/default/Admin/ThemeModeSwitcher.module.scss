@@ -30,16 +30,17 @@ $dark-mode-color: #050227;
   border: 1px solid;
 }
 
-.slider:before {
+.slider > svg {
   position: absolute;
   content: "";
   height: 0.8em;
   width: 0.8em;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  transition-property: transform;
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 input:checked + .slider {
@@ -50,17 +51,22 @@ input:focus + .slider {
   border-color: red;
 }
 
-input:checked + .slider:before {
+input:checked + .slider > .sun {
+  visibility: hidden;
+}
+input:not(:checked) + .slider > .moon {
+  visibility: hidden;
+}
+
+input:checked + .slider > svg {
   $translate-distance: 1.3em;
-  content: "\f186";
   color: white;
   -webkit-transform: translateX($translate-distance);
   -ms-transform: translateX($translate-distance);
   transform: translateX($translate-distance);
 }
 
-input:not(:checked) + .slider:before {
-  content: "\f185";
+input:not(:checked) + .slider > svg {
   color: black;
 }
 

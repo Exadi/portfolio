@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ThemeModeSwitcher.module.scss";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 function ThemeModeSwitcher() {
   /*light and dark mode switching */
@@ -34,7 +35,10 @@ function ThemeModeSwitcher() {
           e.target.checked ? setMode(darkMode) : setMode(lightMode)
         }
       />
-      <span className={`${styles["slider"]} ${styles["round"]}`}></span>
+      <span className={`${styles["slider"]} ${styles["round"]}`}>
+        <FaMoon className={styles["moon"]} />{" "}
+        <FaSun className={styles["sun"]} />
+      </span>
     </label>
   );
 }
