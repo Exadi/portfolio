@@ -18,7 +18,6 @@ function HomePage(props) {
             : "Loading..."}
         </h1>
       </div>
-      <div>This is the default theme.</div>
       <section className="diagonal reverse about-me">
         <h2 className="outlined">About Me</h2>
         <p
