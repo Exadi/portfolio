@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import { findOption } from "../../utils/options";
 import { optionNames } from "./themeOptions";
 import { FaGithub } from "react-icons/fa";
+import axios from "axios";
 
+/*TODO try to find a way so I don't need to manually specify height to get the footer to stick to the bottom of the screen. 
+Make sure it works on mobile too.*/
 function Footer() {
   const options = useSelector((state) => state.content.options);
   const contactFormHandler = findOption(
@@ -19,11 +22,36 @@ function Footer() {
     message: "",
   });
 
+  const [formSuccess, setFormSuccess] = useState(false);
+
   const handleChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const token = document.getElementById("g-recaptcha-response").value;
+    if (formData.message.length >= 20) {
+      axios
+        .post(contactFormHandler, {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          "g-recaptcha-response": token,
+        })
+        .then(() => {
+          console.log("Form submitted successfully");
+          setFormSuccess(true);
+        })
+        .catch((error) => {
+          console.error("Form submission error:", error);
+          // handle form submission error
+        });
+    } else alert("Please enter a message long enough to contain some meaning.");
   };
 
   useEffect(() => {
@@ -39,7 +67,8 @@ function Footer() {
             .execute(recaptchaSiteKey, { action: "submit" })
             .then((token) => {
               console.info("got token: " + token);
-              document.getElementById("g-recaptcha-response").value = token;
+              const el = document.getElementById("g-recaptcha-response");
+              if (el) el.value = token;
             });
         });
       };
@@ -69,38 +98,46 @@ function Footer() {
               </p>
             ) : null
           }
-          <form action={contactFormHandler} method="POST" id="contact-form">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <textarea
-              name="message"
-              placeholder="Message"
-              value={formData.message}
-              onChange={handleChange}
-            />
-            <input
-              type="hidden"
-              id="g-recaptcha-response"
-              name="g-recaptcha-response"
-            />
-            <input
-              type="submit"
-              className="linkButton"
-              style={{ margin: "0.1rem auto" }}
-            ></input>
-          </form>
+          <p>
+            You may remain anonymous if you do not want a response; only message
+            is required.
+          </p>
+          {formSuccess ? (
+            <div>Thank you for your message!</div>
+          ) : (
+            <form onSubmit={handleSubmit} id="contact-form">
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <textarea
+                name="message"
+                placeholder="Message"
+                value={formData.message}
+                onChange={handleChange}
+              />
+              <input
+                type="hidden"
+                id="g-recaptcha-response"
+                name="g-recaptcha-response"
+              />
+              <input
+                type="submit"
+                className="linkButton"
+                style={{ margin: "0.1rem auto" }}
+              ></input>
+            </form>
+          )}
         </div>
 
         <div className="social-links">
