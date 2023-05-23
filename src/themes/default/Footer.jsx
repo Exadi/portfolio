@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { findOption } from "../../utils/options";
 import { optionNames } from "./themeOptions";
@@ -7,7 +6,11 @@ import { FaGithub } from "react-icons/fa";
 
 function Footer() {
   const options = useSelector((state) => state.content.options);
-  const contactFormHandler = findOption(options, optionNames.CONTACT_EMAIL);
+  const contactFormHandler = findOption(
+    options,
+    optionNames.CONTACT_EMAIL
+  )?.value;
+  let recaptchaSiteKey = findOption(options, optionNames.RECAPTCHA)?.value;
   const gitHubURL = findOption(options, optionNames.GITHUB_URL);
 
   const [formData, setFormData] = useState({
@@ -23,13 +26,30 @@ function Footer() {
     });
   };
 
-  const contactSubmit = () => {
-    axios.post(contactFormHandler, {
-      name: formData.name,
-      email: formData.email,
-      message: formData.message,
-    });
-  };
+  useEffect(() => {
+    const script = document.createElement("script");
+    if (recaptchaSiteKey) {
+      script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        console.log("reCAPTCHA API script loaded");
+        window.grecaptcha.ready(() => {
+          window.grecaptcha
+            .execute(recaptchaSiteKey, { action: "submit" })
+            .then((token) => {
+              console.info("got token: " + token);
+              document.getElementById("g-recaptcha-response").value = token;
+            });
+        });
+      };
+
+      document.body.appendChild(script);
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [recaptchaSiteKey]);
 
   return (
     <footer className="footer">
@@ -49,12 +69,7 @@ function Footer() {
               </p>
             ) : null
           }
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              contactSubmit();
-            }}
-          >
+          <form action={contactFormHandler} method="POST" id="contact-form">
             <input
               type="text"
               name="name"
@@ -74,6 +89,11 @@ function Footer() {
               placeholder="Message"
               value={formData.message}
               onChange={handleChange}
+            />
+            <input
+              type="hidden"
+              id="g-recaptcha-response"
+              name="g-recaptcha-response"
             />
             <input
               type="submit"
