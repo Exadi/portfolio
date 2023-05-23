@@ -7,14 +7,29 @@ const capabilities = require("../enums").capabilities;
 
 const getUserByName = require("./users").getUserByName;
 
-router.get("/", (req, res) => {
-  Option.find()
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+router.get("/", async (req, res) => {
+  let user = undefined;
+  if (req.headers.authorization) {
+    user = await getUserByName(jwt_decode(req.headers.authorization).name);
+  }
+
+  if (user && user.capabilities.includes(capabilities.admin)) {
+    Option.find()
+      .then((result) => {
+        res.json(result);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  } else {
+    Option.find({ hidden: false || undefined })
+      .then((result) => {
+        res.json(result);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  }
 });
 
 router.post("/setoption", async (req, res) => {
