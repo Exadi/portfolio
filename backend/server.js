@@ -32,7 +32,7 @@ const setup = require("./api/setup");
 app.use("/api/setup", setup);
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "build")));
+app.use("/static", express.static("build/static"));
 
 app.get("*", function (_, res) {
   res.sendFile(path.join(__dirname, "build/index.html"), function (err) {
