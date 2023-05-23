@@ -34,10 +34,17 @@ app.use("/api/setup", setup);
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/static", express.static("build/static"));
 
-app.get("*", function (_, res) {
-  res.sendFile(path.join(__dirname, "build/index.html"), function (err) {
-    res.status(500).send(err);
-  });
+app.get("*", function (req, res, next) {
+  if (
+    req.originalUrl.startsWith("/static") ||
+    req.originalUrl.startsWith("/public")
+  ) {
+    next();
+  } else {
+    res.sendFile(path.join(__dirname, "build/index.html"), function (err) {
+      res.status(500).send(err);
+    });
+  }
 });
 
 // Serve the theme files
