@@ -180,7 +180,7 @@ $color-secondary-dark: #0c104e;
   }
 }
 
-$footer-height: 18rem;
+$footer-height: 24rem;
 .main-content {
   width: 100%;
   box-sizing: border-box;
@@ -240,7 +240,10 @@ footer {
 }
 
 footer .wrapper {
-  padding: 5em;
+  padding: 3em;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
 }
 
 .view-post,
@@ -265,4 +268,15 @@ footer .wrapper {
   //border: 0.2em solid gray;
 
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+footer input,
+footer textarea {
+  display: block;
+  width: 20rem;
+  box-sizing: border-box;
+}
+
+footer textarea {
+  height: 7rem;
 }
