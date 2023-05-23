@@ -32,7 +32,7 @@ const setup = require("./api/setup");
 app.use("/api/setup", setup);
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/static", express.static("build/static"));
+app.use("/static", express.static(path.join(__dirname, "build/static")));
 
 app.get("*", function (req, res, next) {
   if (
